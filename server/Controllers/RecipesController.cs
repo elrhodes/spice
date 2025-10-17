@@ -6,13 +6,14 @@ namespace spice.Controllers;
 public class RecipesController : ControllerBase
 {
     private readonly RecipesService _rs;
-    // private readonly IngredientsService _is;
+    private readonly IngredientsService _is;
     private readonly Auth0Provider _auth0Provider;
 
-    public RecipesController(RecipesService rs, Auth0Provider auth0Provider)
+    public RecipesController(RecipesService rs, IngredientsService Is, Auth0Provider auth0Provider)
     {
         _rs = rs;
         _auth0Provider = auth0Provider;
+        _is = Is;
     }
 
     [HttpPost]
@@ -82,6 +83,19 @@ public class RecipesController : ControllerBase
             Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
             string message = _rs.Delete(recipeId, userInfo);
             return Ok(message);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+    [HttpGet("{recipeId}/ingredients")]
+    public ActionResult<List<Ingredient>> GetIngredientsByRecipeId(int recipeId)
+    {
+        try
+        {
+            List<Ingredient> ingredients = _is.GetIngredientsByRecipeId(recipeId);
+            return Ok(ingredients);
         }
         catch (Exception e)
         {
