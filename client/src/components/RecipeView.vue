@@ -52,7 +52,7 @@ watch(() => props.recipe.id, getIngredients)
                     <p v-for="ingredient in ingredients" :key="ingredient.id">
                         {{ ingredient.name }} - {{ ingredient.quantity }}
                     </p>
-                    <!-- we are performing a check so if there are no ingredients in the array, it does not just show up blank -->
+                    <!-- we are performing a check so if there are no ingredients in the array, it does not just show up -->
                 </div>
             </div>
 

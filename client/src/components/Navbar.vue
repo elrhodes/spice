@@ -17,12 +17,9 @@ watch(theme, () => {
 </script>
 
 <template>
-  <nav class="navbar navbar-expand-md bg-codeworks border-bottom border-vue">
+  <nav class="navbar navbar-expand-md bg-codeworks border-bottom">
+
     <div class="container gap-2">
-      <RouterLink :to="{ name: 'Home' }" class="d-flex align-items-center text-light">
-        <img class="navbar-brand" alt="logo" src="/img/cw-logo.png" height="45" />
-        <b class="fs-5">Vue Starter</b>
-      </RouterLink>
       <!-- collapse button -->
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-links"
         aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,20 +27,9 @@ watch(theme, () => {
       </button>
       <!-- collapsing menu -->
       <div class="collapse navbar-collapse " id="navbar-links">
-        <ul class="navbar-nav">
-          <li>
-            <RouterLink :to="{ name: 'About' }" class="btn text-green selectable">
-              About
-            </RouterLink>
-          </li>
-        </ul>
+
         <!-- LOGIN COMPONENT HERE -->
         <div class="ms-auto">
-          <button class="btn text-light" @click="toggleTheme"
-            :title="`Enable ${theme == 'light' ? 'dark' : 'light'} theme.`">
-            <i v-if="theme == 'dark'" class="mdi mdi-weather-sunny"></i>
-            <i v-if="theme == 'light'" class="mdi mdi-weather-night"></i>
-          </button>
         </div>
         <Login />
       </div>

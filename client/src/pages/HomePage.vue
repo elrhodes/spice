@@ -1,6 +1,5 @@
 <script setup>
 import { AppState } from '@/AppState.js';
-import ModalWrapper from '@/components/ModalWrapper.vue';
 import RecipeCard from '@/components/RecipeCard.vue';
 import { recipesService } from '@/services/RecipesService.js';
 import { Pop } from '@/utils/Pop.js';
@@ -37,13 +36,13 @@ async function getRecipes() {
         <p>Favorites</p>
       </div>
     </div>
-  </section>
-  <!-- Putting Recipes on the page -->
-  <section class="row mt-5">
+    <!-- Putting Recipes on the page -->
+    <section class="row mt-5">
 
-    <div class="col-4 mb-4" v-for="recipe in recipe" :key="'recipeId' + recipe.id">
-      <RecipeCard :recipe="recipe" />
-    </div>
+      <div class="col-4 mb-4" v-for="recipe in recipe" :key="'recipeId' + recipe.id">
+        <RecipeCard :recipe="recipe" />
+      </div>
+    </section>
   </section>
 </template>
 
