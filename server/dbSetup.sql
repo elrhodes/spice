@@ -89,16 +89,14 @@ FROM recipes
 WHERE
     recipes.id = 2;
 
-        
-        INSERT INTO favorites
-        (recipe_id, account_id)
-        VALUES
-        (@RecipeId, @AccountId);
-        SELECT
-        favorites.id AS favoriteId,
-        recipes.*,
-        accounts.*
-        FROM favorites
-        JOIN recipes ON favorites.recipe_id = recipes.id
-        JOIN accounts ON favorites.account_id = accounts.id
-        WHERE favorites.id = LAST_INSERT_ID();
+INSERT INTO
+    favorites (recipe_id, account_id)
+VALUES (@RecipeId, @AccountId);
+
+SELECT favorites.id AS favoriteId, recipes.*, accounts.*
+FROM
+    favorites
+    JOIN recipes ON favorites.recipe_id = recipes.id
+    JOIN accounts ON favorites.account_id = accounts.id
+WHERE
+    favorites.id = LAST_INSERT_ID();

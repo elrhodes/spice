@@ -34,7 +34,7 @@ public class FavoriteRecipeViewModel
     public string Instructions { get; set; }
     public string Img { get; set; }
     public string Category { get; set; }
-    public string CreatorId { get; set; }
+    public string AccountId { get; set; }
 
     // Creator/profile nested object
     public Profile Creator { get; set; }

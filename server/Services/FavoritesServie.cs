@@ -13,12 +13,18 @@ public class FavoritesService
 
     internal FavoriteRecipeViewModel CreateFavorite(FavoriteRecipeViewModel favoriteData)
     {
-        Recipe recipe = _recipesService.GetById(favoriteData.Id);
-        if (recipe == null)
+        FavoriteRecipeViewModel favorite = _favoritesRepository.CreateFavorite(favoriteData);
+        if (favorite == null)
         {
             throw new Exception("Invalid Recipe ID");
         }
         FavoriteRecipeViewModel newFavorite = _favoritesRepository.CreateFavorite(favoriteData);
         return newFavorite;
+    }
+
+    internal List<FavoriteRecipeViewModel> GetAllFavorites(string AccountId)
+    {
+        List<FavoriteRecipeViewModel> recipes = _favoritesRepository.GetAllFavorites(AccountId);
+        return recipes;
     }
 }
