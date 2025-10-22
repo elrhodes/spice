@@ -22,9 +22,48 @@ public class FavoritesService
         return newFavorite;
     }
 
+
     internal List<FavoriteRecipeViewModel> GetAllFavorites(string AccountId)
     {
         List<FavoriteRecipeViewModel> recipes = _favoritesRepository.GetAllFavorites(AccountId);
         return recipes;
+    }
+
+    // internal void DeleteFavorite(int favoriteId, string userId)
+    // {
+    //     Favorite favorite = _favoritesRepository.GetFavoriteById(favoriteId);
+    //     if (favorite == null)
+    //     {
+    //         throw new Exception("Favorite not found");
+    //     }
+
+    //     if (favorite.AccountId != userId)
+    //     {
+    //         throw new Exception("You cannot delete a favorite that isn’t yours!");
+    //     }
+
+    //     _favoritesRepository.DeleteFavorite(favoriteId);
+    // }
+
+    internal Favorite GetFavoriteById(int favoriteId)
+    {
+        return _favoritesRepository.GetFavoriteById(favoriteId);
+    }
+
+    internal void DeleteFavorite(int favoriteId, string userId)
+    {
+        Favorite favorite = GetFavoriteById(favoriteId);
+
+        if (favorite == null)
+        {
+            throw new Exception("Favorite not found");
+        }
+
+        if (favorite.AccountId != userId)
+        {
+            throw new Exception("You cannot delete a favorite that isn’t yours!");
+        }
+
+        _favoritesRepository.DeleteFavorite(favoriteId);
     }
 }

@@ -1,4 +1,5 @@
 
+
 namespace spice.Repositories;
 
 public class FavoritesRepository
@@ -13,47 +14,81 @@ public class FavoritesRepository
     internal FavoriteRecipeViewModel CreateFavorite(FavoriteRecipeViewModel favoriteData)
     {
         string sql = @"
-        INSERT INTO favorites
-        (recipe_id, account_id)
-        VALUES
-        (@RecipeId, @AccountId);
-        SELECT
-        favorites.*,
-        recipes.*,
-        accounts.*
-        FROM favorites
-        JOIN recipes ON favorites.recipe_id = recipes.id
-        JOIN accounts ON favorites.account_id = accounts.id
-        WHERE favorites.id = LAST_INSERT_ID();";
+        INSERT INTO favorites (recipe_id, account_id)
+        VALUES (@RecipeId, @AccountId);
+    
+        SELECT 
+        f.id AS FavoriteId,
+        r.*,
+        a.* 
+        FROM favorites f
+        JOIN recipes r ON f.recipe_id = r.id
+        JOIN accounts a ON r.creator_id = a.id
+        WHERE f.id = LAST_INSERT_ID();";
 
-        FavoriteRecipeViewModel newFavorite = _db.Query<FavoriteRecipeViewModel>(sql, favoriteData).SingleOrDefault();
+        FavoriteRecipeViewModel favorite = _db.Query<FavoriteRecipeViewModel, Profile, FavoriteRecipeViewModel>(
+            sql,
+            (recipe, creator) =>
+            {
+                recipe.Creator = creator;
+                return recipe;
+            },
+            favoriteData
+        ).FirstOrDefault();
 
-        return newFavorite;
+        return favorite;
     }
 
     internal List<FavoriteRecipeViewModel> GetAllFavorites(string accountId)
     {
         string sql = @"
-        SELECT 
-        recipes.*,
-        recipes.id AS recipeId,
-        recipe.createdAt AS favorited_at,
-        account.*
-        FROM favorites
-        JOIN recipes ON recipe.id = favorites.recipe_id
-        JOIN accounts ON accounts.id = creator_id
-        WHERE account_id = @accountId;
-        ";
-        List<FavoriteRecipeViewModel> favorites = _db.Query(
-sql,
-(Favorite favorite, Profile account) =>
-{
-    favorite.AccountId = account;
-    return favorite;
-},
-new { accountId });
+    SELECT 
+    f.id AS FavoriteId,
+    r.*,
+    a.*
+    FROM favorites f
+    JOIN recipes r ON f.recipe_id = r.id
+    JOIN accounts a ON r.creator_id = a.id
+    WHERE f.account_id = @accountId;";
+
+        List<FavoriteRecipeViewModel> favorites = _db.Query<FavoriteRecipeViewModel, Profile, FavoriteRecipeViewModel>(
+            sql,
+            (recipe, creator) =>
+            {
+                recipe.Creator = creator;
+                return recipe;
+            },
+            new { accountId }
+        ).ToList();
+
         return favorites;
-
-
     }
+
+    internal Favorite GetFavoriteById(int favoriteId)
+    {
+        string sql = @"
+        SELECT f.*, a.*
+        FROM favorites f
+        JOIN accounts a ON f.account_id = a.id
+        WHERE f.id = @favoriteId;
+    ";
+
+        Favorite favorite = _db.Query<Favorite, Profile, Favorite>(
+            sql,
+            (favorite, account) =>
+            {
+                favorite.Account = account;
+                return favorite;
+            },
+            new { favoriteId }
+        ).FirstOrDefault();
+
+        return favorite;
+    }
+    internal void DeleteFavorite(int favoriteId)
+    {
+        string sql = "DELETE FROM favorites WHERE id = @favoriteId LIMIT 1;";
+        _db.Execute(sql, new { favoriteId });
+    }
+
 }

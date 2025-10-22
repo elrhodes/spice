@@ -30,18 +30,21 @@ public class FavoriteRecipeViewModel
     public int FavoriteId { get; set; }
 
     // Recipe fields (kept at top-level to match requested shape)
+    public int RecipeId { get; set; }
+    public string AccountId { get; set; }
     public string Title { get; set; }
     public string Instructions { get; set; }
     public string Img { get; set; }
     public string Category { get; set; }
-    public string AccountId { get; set; }
 
     // Creator/profile nested object
     public Profile Creator { get; set; }
 
-    // Recipe id
     public int Id { get; set; }
 
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }
+    public string CreatorId { get; set; }
+
+
 }

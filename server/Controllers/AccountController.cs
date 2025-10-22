@@ -30,13 +30,14 @@ public class AccountController : ControllerBase
     }
   }
 
-  [HttpGet]
+  [HttpGet("favorites")]
   public async Task<ActionResult<List<FavoriteRecipeViewModel>>> GetAllFavorites()
   {
     try
     {
       Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
-      return Ok(_favoriteService.GetAllFavorites());
+      List<FavoriteRecipeViewModel> favorites = _favoriteService.GetAllFavorites(userInfo.Id);
+      return Ok(favorites);
     }
     catch (Exception e)
     {
