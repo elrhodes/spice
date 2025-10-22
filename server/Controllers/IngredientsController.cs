@@ -1,4 +1,9 @@
+using System.Threading.Tasks;
+
 namespace spice.Controllers;
+
+
+// NOTE update the post for ingredients so another user cannot post ingredients on your recipe
 
 [ApiController]
 [Route("api/ingredients")]
@@ -12,12 +17,14 @@ public class IngredientsController : ControllerBase
         _auth0Provider = auth0Provider;
     }
     [HttpPost]
-    public ActionResult<Ingredient> CreateIngredient([FromBody] Ingredient ingredientData)
+    [Authorize]
+    public async Task<ActionResult<Ingredient>> CreateIngredient([FromBody] Ingredient ingredientData)
     {
         try
         {
+            Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
             int recipeId = ingredientData.RecipeId;
-            Ingredient newIngredient = _ingredientsService.CreateIngredient(ingredientData, recipeId);
+            Ingredient newIngredient = _ingredientsService.CreateIngredient(ingredientData, recipeId, userInfo.Id);
             return Ok(newIngredient);
         }
         catch (Exception e)

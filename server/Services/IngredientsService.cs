@@ -12,13 +12,18 @@ public class IngredientsService
         _recipesService = recipesService;
     }
 
-    internal Ingredient CreateIngredient(Ingredient ingredientData, int recipeId)
+    internal Ingredient CreateIngredient(Ingredient ingredientData, int recipeId, string userInfo)
     {
         Recipe recipe = _recipesService.GetById(recipeId);
         if (recipe == null)
         {
             throw new Exception("Invalid Recipe ID");
         }
+        if (userInfo != recipe.CreatorId)
+        {
+            throw new Exception("You are not the creator of this recipe!");
+        }
+
         Ingredient newIngredient = _ingredientsRepository.CreateIngredient(ingredientData);
         return newIngredient;
     }
