@@ -22,20 +22,26 @@ async function getRecipes() {
 <template>
   <section class="container-fluid mx-0 px-0">
     <!-- Main Header Section -->
-    <div class="row  sahitya-regular allSpice position-relative">
+    <!-- <div class="row  sahitya-regular allSpice position-relative">
       <div class="d-flex flex-column justify-content-center align-items-center font-spice text-white">
         <h1 class="">All-Spice</h1>
         <p>Cherish Your Family</p>
         <p>And Their Cooking</p>
-      </div>
-      <!-- Starting tabs -->
-      <div
+      </div> -->
+    <!-- Starting tabs -->
+    <!-- <div
         class="col-3 d-flex flex-row justify-content-center align-items-center sahitya-regular absolute gap-3 text-green align-self-end rounded">
-        <p>Home</p>
-        <p>My Recipes</p>
-        <p>Favorites</p>
+        <RouterLink :to="{ name: 'Home' }">
+          <p>Home</p>
+        </RouterLink>
+        <RouterLink :to="{ name: 'My Recipes' }">
+          <p>My Recipes</p>
+        </RouterLink>
+        <RouterLink :to="{ name: 'Favorites' }">
+          <p>Favorites</p>
+        </RouterLink>
       </div>
-    </div>
+    </div> -->
     <!-- Putting Recipes on the page -->
     <section class="row mt-5">
 

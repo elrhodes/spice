@@ -24,7 +24,7 @@ function closeModal() {
         <!-- Only render when modal is open -->
         <RecipeView v-if="modalOpen" :key="recipe.id" :recipe="recipe" />
     </ModalWrapper>
-    <!-- important to add the v-if so our open and close funtions work properly -->
+    <!-- important to add the v-if so our open and close functions work properly -->
 
     <div class="card recipe-card">
         <img class="card-img" :src="recipe.img" alt="">
