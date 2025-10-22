@@ -33,8 +33,9 @@ function closeModal() {
             <p class="category-color rounded-pill">{{ recipe.category }}</p>
         </div>
         <div class="top-bar-likes">
-
-            <span class="mdi mdi-heart likes-color p-1"></span>
+            <b type="button">
+                <span class="mdi mdi-heart likes-color p-1"></span>
+            </b>
         </div>
         <div class="box-color m-3 rounded">
             <h3 data-bs-toggle="modal" :data-bs-target="`#recipe-modal-${recipe.id}`">

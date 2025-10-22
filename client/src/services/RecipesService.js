@@ -11,6 +11,7 @@ class RecipesService {
         AppState.recipes = response.data.map(r => new Recipe(r))
     }
 
+
 }
 
 export const recipesService = new RecipesService()

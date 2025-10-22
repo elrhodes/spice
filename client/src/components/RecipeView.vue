@@ -27,7 +27,7 @@ const props = defineProps({
 
 onMounted(getIngredients)
 
-// run every time the recipe changes
+// run every time the recipe changes so we are not always seeing the same recipe details
 watch(() => props.recipe.id, getIngredients)
 </script>
 

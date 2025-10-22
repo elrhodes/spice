@@ -1,10 +1,11 @@
 <script setup>
 
+
 </script>
 
 
 <template>
-    <div>hello from my recipes</div>
+    hello
 </template>
 
 
