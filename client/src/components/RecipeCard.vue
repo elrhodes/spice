@@ -28,6 +28,14 @@ function closeModal() {
 
     <div class="card recipe-card">
         <img class="card-img" :src="recipe.img" alt="">
+        <!-- Top bar info -->
+        <div class="top-bar">
+            <p class="category-color rounded-pill">{{ recipe.category }}</p>
+        </div>
+        <div class="top-bar-likes">
+
+            <span class="mdi mdi-heart likes-color p-1"></span>
+        </div>
         <div class="box-color m-3 rounded">
             <h3 data-bs-toggle="modal" :data-bs-target="`#recipe-modal-${recipe.id}`">
                 {{ recipe.title }}
@@ -39,57 +47,6 @@ function closeModal() {
 
 
 <style lang="scss" scoped>
-img {
-    width: 100%;
-    max-height: 250px;
-    object-fit: cover;
-}
-
-.box-color {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(68, 66, 66, 0.513);
-    color: #fff;
-    padding: 0.75rem;
-    display: flex;
-    align-items: flex-end;
-    box-sizing: border-box;
-}
-
-.category-color {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 10;
-    background: rgba(68, 66, 66, 0.513);
-    color: #fff;
-    display: flex;
-    align-items: flex-start;
-    box-sizing: border-box;
-    max-width: 9vh;
-    max-height: 3vh;
-    font-size: smaller;
-}
-
-.likes-color {
-    position: absolute;
-    left: 10;
-    right: 0;
-    bottom: 10;
-    background: rgba(68, 66, 66, 0.513);
-    color: #fff;
-    display: flex;
-    align-items: flex-start;
-    box-sizing: border-box;
-    min-width: 1.5vw;
-    min-height: 3vh;
-    font-size: smaller;
-}
-
-
-
 .recipe-card {
     position: relative;
     overflow: hidden;
@@ -100,5 +57,43 @@ img {
     max-height: 250px;
     object-fit: cover;
     display: block;
+}
+
+.top-bar {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 2;
+}
+
+.top-bar-likes {
+    position: absolute;
+    top: 0px;
+    left: 430px;
+    right: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 2;
+}
+
+
+.category-color {
+    background: rgba(68, 66, 66, 0.6);
+    color: #fff;
+    padding: 0.25rem 0.5rem;
+    font-size: smaller;
+    border-radius: 9999px;
+}
+
+.likes-color {
+    color: #fff;
+    font-size: 1.25rem;
+    background: rgba(68, 66, 66, 0.6);
+    padding: 0.3rem;
 }
 </style>

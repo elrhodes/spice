@@ -43,6 +43,9 @@ async function getRecipes() {
         <RecipeCard :recipe="recipe" />
       </div>
     </section>
+    <div class="row text-end sticky-bottom">
+      <b><span class="mdi mdi-plus-circle fs-1 text-green fw-bold"></span></b>
+    </div>
   </section>
 </template>
 
